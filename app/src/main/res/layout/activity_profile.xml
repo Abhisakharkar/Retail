@@ -30,7 +30,7 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/profile_activity_shop_name_edittext_id"
                     style="@style/ProfileEdittextStyle"
-                    android:drawableStart="@drawable/ic_shop"
+
                     android:drawablePadding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     android:id="@+id/profile_activity_proprietor_edittext_id"
                     style="@style/ProfileEdittextStyle"
                     android:drawablePadding="15dp"
-                    android:drawableStart="@drawable/ic_person_black_24dp"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/proprietor" />
@@ -66,7 +66,7 @@
                     android:id="@+id/profile_activity_mobile_no_edittext_id"
                     style="@style/ProfileEdittextStyle"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_phone_android_black_24dp"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/mobile_number" />
@@ -103,7 +103,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:background="@drawable/open_time"
+
                 android:layout_marginBottom="15dp"
                 app:layout_constraintTop_toBottomOf="@+id/shop_locaton_heading">
 
@@ -113,7 +113,7 @@
 
                     android:id="@+id/map"
                     android:layout_margin="5dp"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
+
                     android:layout_width="match_parent"
                     android:layout_height="245dp"
                     android:layout_marginBottom="5dp"
@@ -122,11 +122,11 @@
                     android:id="@+id/set_location_image_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/item_product_part_disable_view"/>
+               />
 
                 <android.support.design.widget.FloatingActionButton
                     android:id="@+id/profile_activity_location_btn_id"
-                    android:onClick="onClick"
+
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/map"
@@ -135,7 +135,7 @@
                     android:layout_marginEnd="14dp"
                     android:scaleType="center"
                     android:backgroundTint="@color/colorWhite"
-                    app:srcCompat="@drawable/ic_my_location_black_24dp"/>
+                    />
 
             </RelativeLayout>
 
@@ -151,7 +151,7 @@
                     android:id="@+id/profile_activity_addline_1_edittext_id"
                     style="@style/ProfileEdittextStyle"
                     android:drawablePadding="10dp"
-                    android:drawableStart="@drawable/ic_home_black_24dp"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/address_line" />
@@ -167,14 +167,14 @@
                 android:text="@string/city"
                 android:textSize="20sp"
                 android:drawablePadding="10dp"
-                android:drawableStart="@drawable/ic_market_square"
+
                 app:layout_constraintTop_toBottomOf="@+id/profile_activity_addline_1_layout_id" />
 
             <TextView
                 android:id="@+id/profile_activity_locality_textview_id"
                 style="@style/ProfileEdittextStyle"
                 android:layout_width="match_parent"
-                android:drawableStart="@drawable/ic_location_city_black_24dp"
+
                 android:drawablePadding="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -189,8 +189,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginLeft="16dp"
-                android:onClick="onClick"
-                android:background="@drawable/open_time"
+
+
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/profile_activity_sublocality_txtview_id" />
@@ -203,7 +203,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="16dp"
-                android:onClick="onClick"
+
                 android:text="@string/save_profile"
                 app:layout_constraintTop_toBottomOf="@+id/profile_activity_license_photo_imageview_id" />
 

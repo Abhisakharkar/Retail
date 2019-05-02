@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.example.retail.Contracts.SignUpContract;
 import com.example.retail.Enum.CredentialEnum;
+import com.example.retail.Presenter.SignUpPresenter;
 import com.example.retail.Utils.Common.CredentialValidator;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpContract.view {
@@ -18,6 +19,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
     private ConstraintLayout parentLayout;
     private EditText mailEdittext, passEdittext, confirmPassEdittext;
     private CredentialValidator credentialValidator;
+    private SignUpPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

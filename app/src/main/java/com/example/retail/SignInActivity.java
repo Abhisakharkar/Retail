@@ -9,10 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 
 
+import com.example.retail.Components.AppComponent;
 import com.example.retail.Contracts.SignInContract;
 import com.example.retail.Enum.CredentialEnum;
 import com.example.retail.Presenter.SignInPresenter;
 import com.example.retail.Utils.Common.CredentialValidator;
+
+import javax.inject.Inject;
 
 public class SignInActivity extends AppCompatActivity implements SignInContract.view {
 
@@ -21,7 +24,8 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     private ConstraintLayout parentLayout;
 
     private static final String TAG = "SignInActivity";
-    private CredentialValidator credentialValidator;
+
+    CredentialValidator credentialValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +34,14 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
         parentLayout = findViewById(R.id.signinactivity_parent_layout);
         mailEdittext = findViewById(R.id.signinactivity_mail_edittext);
         passEdittext = findViewById(R.id.signinactivity_pass_edittext);
-        credentialValidator =new CredentialValidator();
+        AppComponent appComponent=((RetailApp) getApplication()).getAppComponent();
+        credentialValidator=appComponent.getCredentialValidator();
+        presenter=new SignInPresenter(this,appComponent.getDataManager());
     }
     public void SignInButtonOnClick(View view) {
         CredentialEnum result=credentialValidator.ValidateForSignIn(mailEdittext.getText(),passEdittext.getText());
         if (result==CredentialEnum.OK){
-
+            presenter.signIn(mailEdittext.getText().toString().trim(),passEdittext.getText().toString().trim());
         }else {
             showSnackbar(result.toString(),Snackbar.LENGTH_SHORT);
         }
@@ -67,6 +73,13 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     @Override
     public void gotoSignUpActivity() {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
+    }
+
+    @Override
+    public void gotoHomeActivity() {
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }

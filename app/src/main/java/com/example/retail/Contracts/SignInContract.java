@@ -5,6 +5,7 @@ public interface SignInContract {
         void gotoProfileActivity();
         void showSnackbar(String message,int length);
         void gotoSignUpActivity();
+        void gotoHomeActivity();
     }
     interface presenter{}
 }

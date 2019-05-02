@@ -7,6 +7,8 @@ import com.example.retail.Enum.CredentialEnum;
 
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
 import static com.example.retail.Enum.CredentialEnum.EMAIL_EMPTY;
 import static com.example.retail.Enum.CredentialEnum.EMAIL_WRONG_FORMAT;
 import static com.example.retail.Enum.CredentialEnum.PASS_EMPTY;
@@ -14,6 +16,8 @@ import static com.example.retail.Enum.CredentialEnum.PASS_NOT_SAME;
 import static com.example.retail.Enum.CredentialEnum.PASS_WRONG_FORMAT;
 
 public class CredentialValidator {
+    @Inject
+    public CredentialValidator(){}
 
     public CredentialEnum ValidateForSignIn(Editable mailEditable,Editable passEditable){
         String mail = mailEditable.toString().trim();
