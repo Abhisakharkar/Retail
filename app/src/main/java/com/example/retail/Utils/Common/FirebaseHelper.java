@@ -1,25 +1,38 @@
 package com.example.retail.Utils.Common;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+
 import com.example.retail.Callbacks.SuccessFailureCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.internal.IdTokenListener;
+import com.google.firebase.internal.InternalTokenResult;
 
 import javax.inject.Inject;
 
+import static android.content.ContentValues.TAG;
+
 public class FirebaseHelper {
         private FirebaseAuth firebaseAuth;
+        private SharedPreferencesHelper sharedPreferencesHelper;
+
         @Inject
-        public FirebaseHelper() {
+        public FirebaseHelper(SharedPreferencesHelper sharedPreferencesHelper) {
             firebaseAuth = FirebaseAuth.getInstance();
+            this.sharedPreferencesHelper=sharedPreferencesHelper;
         }
 
         public void signIn(String mail, String pass, SuccessFailureCallback callback) {
             firebaseAuth.signInWithEmailAndPassword(mail, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+                            getToken();
                             callback.onSuccess();
                         } else {
                             task.getException().printStackTrace();
@@ -32,6 +45,7 @@ public class FirebaseHelper {
             firebaseAuth.createUserWithEmailAndPassword(mail, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+                            getToken();
                             callback.onSuccess();
                         } else {
                             //getException(task);
@@ -59,8 +73,23 @@ public class FirebaseHelper {
 
             }
         }
+
+        public void getToken(){
+            firebaseAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                @Override
+                public void onComplete(@NonNull Task<GetTokenResult> task) {
+                    if (task.isSuccessful()) {
+                        String idToken = task.getResult().getToken();
+                        sharedPreferencesHelper.setToken(idToken);
+                    } else {
+                        Log.d(TAG, "onComplete: firebase Get token failed");
+                    }
+                }
+            });
+        }
+
 //
-//        public void getFirebaseToken(JsonDataCallback callback) {
+//        public void getToken() {
 //            firebaseAuth.addIdTokenListener()
 //                    .addOnCompleteListener(task -> {
 //                        if (task.isSuccessful()) {

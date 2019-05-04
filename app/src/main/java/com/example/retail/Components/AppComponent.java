@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.retail.DataManager;
+import com.example.retail.Presenter.SignInPresenter;
 import com.example.retail.Utils.Common.CredentialValidator;
 import com.example.retail.Utils.Common.FirebaseHelper;
 import com.example.retail.Utils.Common.SharedPreferencesHelper;
@@ -26,7 +27,7 @@ public interface AppComponent {
     @Component.Builder
     interface Builder{
         @BindsInstance
-        Builder appContext(Context applicationContext);
+        Builder appContext(@Named ("applicationContext") Context applicationContext);
         AppComponent build();
     }
 }

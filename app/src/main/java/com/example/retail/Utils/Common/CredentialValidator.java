@@ -19,8 +19,8 @@ public class CredentialValidator {
     @Inject
     public CredentialValidator(){}
 
-    public CredentialEnum ValidateForSignIn(Editable mailEditable,Editable passEditable){
-        String mail = mailEditable.toString().trim();
+    public CredentialEnum ValidateForSignIn(String mail,String pass){
+        //String mail = mailEditable.toString().trim();
         if (mail.isEmpty()) {
             return EMAIL_EMPTY;
         }
@@ -28,7 +28,7 @@ public class CredentialValidator {
             return EMAIL_WRONG_FORMAT;
         }
 
-        String pass = passEditable.toString().trim();
+        //String pass = passEditable.toString().trim();
         if (pass.isEmpty()) {
             return PASS_EMPTY;
         }
@@ -41,17 +41,13 @@ public class CredentialValidator {
 
     }
 
-    public CredentialEnum ValidateForSignUp(Editable mailEditable, Editable passEditable, Editable confirmPassEditable){
-        String mail = mailEditable.toString().trim();
+    public CredentialEnum ValidateForSignUp(String mail, String pass, String confirmPass){
         if (mail.isEmpty()) {
             return EMAIL_EMPTY;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             return EMAIL_WRONG_FORMAT;
         }
-
-        String pass = passEditable.toString().trim();
-        String confirmPass = confirmPassEditable.toString().trim();
 
         if (pass.isEmpty() || confirmPass.isEmpty()) {
             return PASS_EMPTY;
