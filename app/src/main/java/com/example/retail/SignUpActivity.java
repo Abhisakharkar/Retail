@@ -9,9 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.retail.Contracts.SignUpContract;
-import com.example.retail.Enum.CredentialEnum;
 import com.example.retail.Presenter.SignUpPresenter;
 import com.example.retail.Utils.Common.CredentialValidator;
+import com.example.retail.di.Components.AppComponent;
+import com.example.retail.di.RetailApp;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpContract.view {
 
@@ -29,16 +30,12 @@ public class SignUpActivity extends AppCompatActivity implements SignUpContract.
         mailEdittext = findViewById(R.id.signupactivity_mail_edittext);
         passEdittext = findViewById(R.id.signupactivity_pass_edittext);
         confirmPassEdittext = findViewById(R.id.signupactivity_confirm_pass_edittext);
-        credentialValidator=new CredentialValidator();
+        AppComponent appComponent=((RetailApp) getApplication()).getAppComponent();
+        presenter=new SignUpPresenter(this,appComponent.getFirebaseHelper(),appComponent.getCredentialValidator());
     }
 
     public void SignUpButtonOnClick(View view) {
-         CredentialEnum result=credentialValidator.ValidateForSignUp(mailEdittext.getText(),passEdittext.getText(),confirmPassEdittext.getText());
-         if (result==CredentialEnum.OK){
-
-         }else {
-             showSnackbar(result.toString(),Snackbar.LENGTH_SHORT);
-         }
+        presenter.signUp(mailEdittext.getText().toString().trim(),passEdittext.getText().toString().trim(),confirmPassEdittext.getText().toString().trim());
     }
 
     public void gotoSignInButtonOnClick(View view){

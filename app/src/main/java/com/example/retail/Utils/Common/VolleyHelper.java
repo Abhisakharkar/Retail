@@ -1,5 +1,6 @@
 package com.example.retail.Utils.Common;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import com.example.retail.Callbacks.JsonDataCallback;
 import com.example.retail.Callbacks.SuccessFailureCallback;
 import com.example.retail.R;
 import com.example.retail.Utils.Common.SharedPreferencesHelper;
+import com.example.retail.di.RetailApp;
 
 
 import org.json.JSONObject;
@@ -45,14 +47,15 @@ import javax.net.ssl.TrustManagerFactory;
 public class VolleyHelper {
 
     private String TAG = "VolleyHelper";
-    private static final String BaseUrl="https://ec2-13-234-45-216.ap-south-1.compute.amazonaws.com";
-    private Context context;
+//    private static final String BaseUrl="https://ec2-13-234-45-216.ap-south-1.compute.amazonaws.com";
+    private static final String BaseUrl="https://192.168.1.100";
+    @Inject
+    RetailApp context;
     private SharedPreferencesHelper sharedPreferencesHelper;
     private RequestQueue requestQueue;
     @Inject
-    private VolleyHelper(@Named("applicationContext") Context context, SharedPreferencesHelper sharedPreferencesHelper) {
+    public VolleyHelper(SharedPreferencesHelper sharedPreferencesHelper) {
         requestQueue = Volley.newRequestQueue(context, new HurlStack(null, getSocketFactory()));
-        this.context = context;
         this.sharedPreferencesHelper=sharedPreferencesHelper;
     }
 
@@ -66,20 +69,20 @@ public class VolleyHelper {
 //            JSONObject body = new JSONObject();
 //            body.put("Authorization",token);
 //
-////            sendRequest2("POST", path, headers, body);
+//            sendRequest2("POST", path, headers, body);
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //    }
 
-    public void sendRequest(String path, JSONObject headers, final JSONObject requestBody, JsonDataCallback callback) {
+    public void sendRequest(String path, JSONObject params, final JSONObject requestBody, JsonDataCallback callback) {
 
         String URL = BaseUrl + path;
         int method = 0;
 
-        Log.d(TAG, "sendRequest: headers ::: "+headers);
+        Log.d(TAG, "sendRequest: headers ::: "+params);
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, URL, headers
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(method, URL, params
                 , new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

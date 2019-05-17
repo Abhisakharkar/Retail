@@ -1,4 +1,4 @@
-package com.example.retail.Components;
+package com.example.retail.di.scope;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

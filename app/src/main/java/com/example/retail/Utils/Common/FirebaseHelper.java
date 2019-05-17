@@ -32,8 +32,7 @@ public class FirebaseHelper {
             firebaseAuth.signInWithEmailAndPassword(mail, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            getToken();
-                            callback.onSuccess();
+                            getToken(callback);
                         } else {
                             task.getException().printStackTrace();
                             callback.onFailure();
@@ -45,8 +44,7 @@ public class FirebaseHelper {
             firebaseAuth.createUserWithEmailAndPassword(mail, pass)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            getToken();
-                            callback.onSuccess();
+                            getToken(callback);
                         } else {
                             //getException(task);
                             task.getException().printStackTrace();
@@ -74,53 +72,22 @@ public class FirebaseHelper {
             }
         }
 
-        public void getToken(){
-            firebaseAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-                @Override
-                public void onComplete(@NonNull Task<GetTokenResult> task) {
-                    if (task.isSuccessful()) {
-                        String idToken = task.getResult().getToken();
-                        sharedPreferencesHelper.setToken(idToken);
-                    } else {
-                        Log.d(TAG, "onComplete: firebase Get token failed");
+        private void getToken(SuccessFailureCallback callback){
+                firebaseAuth.getCurrentUser().getIdToken(true).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GetTokenResult> task) {
+                        if (task.isSuccessful()) {
+                            String idToken = task.getResult().getToken();
+                            sharedPreferencesHelper.setToken(idToken);
+                            callback.onSuccess();
+                        } else {
+                            Log.d(TAG, "onComplete: firebase Get token failed");
+                            callback.onFailure();
+                        }
                     }
-                }
-            });
+                });
         }
 
-//
-//        public void getToken() {
-//            firebaseAuth.addIdTokenListener()
-//                    .addOnCompleteListener(task -> {
-//                        if (task.isSuccessful()) {
-//                            String token = task.getResult().getToken();
-//                            try {
-//                                JSONObject jsonObject = new JSONObject();
-//                                jsonObject.put("from", "getFirebaseToken");
-//                                jsonObject.put("token", token);
-//                                callback.onSuccess(jsonObject);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                                callback.onFailure(null);
-//                            }
-//                        } else {
-//                            try {
-//                                JSONObject jsonObject = new JSONObject();
-//                                jsonObject.put("from", "getFirebaseToken");
-//                                jsonObject.put("error", task.getException());
-//
-//                                callback.onFailure(jsonObject);
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                                callback.onFailure(null);
-//                            }
-//                        }
-//                    });
-//        }
-//
-//        public boolean isMailVerified() {
-//            return firebaseProvider.getUser().isEmailVerified();
-//        }
 
  }
 

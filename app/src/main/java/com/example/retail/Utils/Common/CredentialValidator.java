@@ -52,14 +52,17 @@ public class CredentialValidator {
         if (pass.isEmpty() || confirmPass.isEmpty()) {
             return PASS_EMPTY;
         }
-        if (!pass.equals(confirmPass)) {
-            return PASS_NOT_SAME;
-        }
 
         Pattern PASSWORD_PATTERN = Pattern.compile("[a-zA-Z0-9\\!\\@\\#\\$\\%]{8,24}");
         if (!PASSWORD_PATTERN.matcher(pass).matches()) {
             return PASS_WRONG_FORMAT;
         }
+
+        if (!pass.equals(confirmPass)) {
+            return PASS_NOT_SAME;
+        }
+
+
         return CredentialEnum.OK;
     }
 

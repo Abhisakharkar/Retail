@@ -1,4 +1,4 @@
-//package com.example.retail.Components;
+//package com.example.retail.di.Components;
 //
 //import android.app.Activity;
 //import android.content.Context;

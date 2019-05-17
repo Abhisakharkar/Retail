@@ -8,13 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.retail.Components.AppComponent;
+import com.example.retail.di.Components.AppComponent;
 import com.example.retail.Contracts.SignInContract;
-import com.example.retail.Enum.CredentialEnum;
 import com.example.retail.Presenter.SignInPresenter;
-import com.example.retail.Utils.Common.CredentialValidator;
-
-import javax.inject.Inject;
+import com.example.retail.di.RetailApp;
 
 public class SignInActivity extends AppCompatActivity implements SignInContract.view {
 
@@ -33,7 +30,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
         passEdittext = findViewById(R.id.signinactivity_pass_edittext);
         AppComponent appComponent=((RetailApp) getApplication()).getAppComponent();
 
-        presenter=new SignInPresenter(this,appComponent.getDataManager(),appComponent.getCredentialValidator(),appComponent.getFirebaseHelper());
+        presenter=new SignInPresenter(this,appComponent.getCredentialValidator(),appComponent.getFirebaseHelper(),appComponent.getVolleyHelper());
     }
     public void SignInButtonOnClick(View view) {
         presenter.signIn(mailEdittext.getText().toString().trim(),passEdittext.getText().toString().trim());
